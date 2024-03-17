@@ -1,0 +1,300 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: white;
+}
+/*
+#navBar {
+  display: flex;
+  flex-direction: row;
+  margin: 25px 5%;
+}
+#navBar h1 {
+  font-size: 40px;
+  padding: 10px;
+  width: 30%;
+  font-weight: 600;
+}
+#navigation {
+  display: flex;
+  width: 50%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+#navigation p {
+  cursor: pointer;
+  text-decoration: none;
+}
+.icons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 25%;
+}
+.icons img {
+  margin: 15px;
+  cursor: pointer;
+}
+.highlight {
+  color: #ff6200;
+  font-weight: 700;
+}
+/*
+/* .header {
+  padding: 20px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  background-color: #b53822;
+  color: #ffffff;
+}
+.header p {
+  color: grey;
+}
+
+.header h1 {
+  display: inline-block;
+  font-size: 48px;
+}
+
+.header h1 .seo {
+  color: #d9dcd6;
+}
+
+.header ul {
+  position: relative;
+  bottom: 55px;
+  display: inline;
+  padding-top: 15px;
+  margin-right: 20px;
+  float: right;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 20px;
+  list-style-type: none;
+}
+
+.header ul li {
+  display: inline-block;
+  margin-left: 25px;
+}
+*/
+.first {
+  padding: 3%;
+}
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+p {
+  font-size: 25px;
+}
+/*changing height of navbar*/
+.navbar {
+  height: 100px;
+}
+.nav-item {
+  padding-right: 60px;
+  font-size: 20px;
+}
+.navbar-brand {
+  font-size: 30px;
+}
+.hero {
+  height: 500px;
+  width: 100%;
+  margin-bottom: 25px;
+  background-image: url("../assets/images/painting1.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.float-right {
+  float: right;
+  margin-left: 25px;
+  size: 20px;
+}
+
+.content {
+  width: 75%;
+  display: inline-block;
+  margin-left: 20px;
+}
+.content img {
+  max-height: 200px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 36px;
+}
+
+article {
+  top: 200px;
+  right: 100px;
+  width: 900px;
+  border-bottom: 10px solid #b53822;
+  position: absolute;
+  margin-bottom: 20px;
+  padding: 50px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
+}
+
+.benefits {
+  margin-right: 20px;
+  padding: 20px;
+  clear: both;
+  float: right;
+  width: 20%;
+  height: 100%;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  background-color: #bda425;
+}
+
+h3 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+aside {
+  margin-bottom: 32px;
+  color: #ffffff;
+}
+
+.benefits img {
+  display: block;
+  margin: 10px auto;
+  max-width: 150px;
+}
+
+.footer {
+  padding: 30px;
+  clear: both;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  text-align: center;
+}
+
+h4 {
+  font-size: 20px;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #b53822;
+  padding: 20px;
+}
+.ig,
+.map,
+.pn {
+  padding: 30px;
+}
+img {
+  float: left;
+  margin-right: 25px;
+  size: 50px;
+}
+.subHeading {
+  text-align: center;
+  border-bottom: 2px solid black;
+  width: 300px;
+  margin: 50px auto;
+}
+#categoryGrid {
+  margin: 0px 2%;
+  display: grid;
+  grid-template-rows: 300px 300px 300px 300px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "ameglio artist1 artist2 artist2"
+    "artist3 artist3 artist2 artist2"
+    "artist4 artist4 artist4 artist4";
+}
+#ameglio {
+  grid-area: ameglio;
+  background-image: url("../assets/images/ameglio.jpg");
+}
+#artist1 {
+  grid-area: artist1;
+  background-image: url("../assets/images/artist1.png");
+}
+#artist2 {
+  grid-area: artist2;
+  background-image: url("../assets/images/artist2.png");
+}
+#artist3 {
+  grid-area: artist3;
+  background-image: url("../assets/images/artist3.png");
+}
+#artist4 {
+  grid-area: artist4;
+  background-image: url("../assets/images/sunset.jpg");
+}
+.categoryGridArea {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 5px;
+  cursor: pointer;
+  display: grid;
+  align-content: end;
+}
+.heading {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  height: 25px;
+  color: white;
+  font-size: 18px;
+  border-bottom: 5px solid #ff6200;
+}
+@media only screen and (max-width: 600px) {
+  #first #second {
+    position: static;
+    margin: 20px;
+  }
+  #second {
+    visibility: hidden;
+  }
+  #navBar h1 {
+    font-size: 20px;
+    width: 50%;
+  }
+  .footer {
+    padding: 10px;
+  }
+  #categoryGrid {
+    grid-template-rows: 300px 300px 300px 300px 300px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "ameglio"
+      "artist1"
+      "artist2"
+      "artist3"
+      "artist4";
+  }
+}
+@media (max-width: 1000px) {
+  .hero {
+    height: 200px;
+  }
+  .second {
+    visibility: hidden;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  #navigation {
+    display: none;
+  }
+  #navBar {
+    margin: 10px 2%;
+  }
+  .icons {
+    margin-left: auto;
+  }
+}

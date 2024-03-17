@@ -1,0 +1,50 @@
+:root {
+  --background: rgb(60, 48, 48);
+}
+.navbar {
+  height: 100px;
+}
+.nav-item {
+  padding-right: 60px;
+  font-size: 20px;
+}
+.navbar-brand {
+  font-size: 30px;
+}
+.hero {
+  height: 500px;
+  width: 100%;
+  margin-bottom: 25px;
+  background-color: var(--background);
+  position: relative;
+}
+img {
+  height: 200px;
+}
+.p-3 {
+  display: flex;
+  flex-direction: row;
+}
+p {
+  text-align: left;
+}
+h2 {
+  text-align: left;
+  font-size: 20px;
+}
+article {
+  padding-left: 10px;
+}
+.artistInfo {
+  position: absolute;
+  bottom: 50%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  padding: 20px;
+  width: 60%;
+}
+.artistInfo h2 {
+  padding-bottom: 20px;
+}
