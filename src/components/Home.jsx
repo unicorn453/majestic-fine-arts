@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Header";
 import Hero from "./Hero";
 import "../css/styles.css";
+import ArtistsGrid from "./ArtistsGrid";
 
 function Home() {
   return (
@@ -11,7 +12,7 @@ function Home() {
         <div className="components-wrapper">
           <Header />
           <Hero />
-
+          <ArtistsGrid />
           <div className="graphs-wrapper">{/* <Transactions /> */}</div>
         </div>
       </div>

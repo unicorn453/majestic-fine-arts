@@ -5,7 +5,7 @@ function Header() {
     <div className="navbar fixed-top navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
         <a className="navbar-brand mb-0 h1" href="#">
-          De Busschere Fine Arts
+          Majestic Fine Arts
         </a>
         <button
           className="navbar-toggler"
