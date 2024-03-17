@@ -2,20 +2,21 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Header";
 import Hero from "./Hero";
+import "../css/styles.css";
+
 function Home() {
-  <div className="overview-wrapper">
-    <div className="overview-content">
-      <div className="components-wrapper">
-        <div className="form-wrapper">
+  return (
+    <div className="overview-wrapper">
+      <div className="overview-content">
+        <div className="components-wrapper">
           <Header />
-        </div>
-        <div className="graphs-wrapper">
           <Hero />
-          {/* <Transactions /> */}
+
+          <div className="graphs-wrapper">{/* <Transactions /> */}</div>
         </div>
       </div>
     </div>
-  </div>;
+  );
 }
 
 export default Home;

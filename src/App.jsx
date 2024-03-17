@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import AboutUs from "./components/AboutUs";
 import Contact from "./components/Contact";
+import "./css/styles.css";
 function App() {
   return (
     <>
