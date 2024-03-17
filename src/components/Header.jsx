@@ -1,35 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-function Header() {
+
+const Header = () => {
+  const [showCollapsedMenu, setShowCollapsedMenu] = useState(false);
+
+  const toggleMenu = () => {
+    setShowCollapsedMenu((prevShowCollapsedMenu) => !prevShowCollapsedMenu);
+  };
+
   return (
-    <div className="navbar fixed-top navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <a className="navbar-brand mb-0 h1" href="#">
+        <a className="navbar-brand" href="#">
           Majestic Fine Arts
         </a>
         <button
           className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
+          onClick={toggleMenu}
           aria-controls="navbarSupportedContent"
-          aria-expanded="false"
+          aria-expanded={showCollapsedMenu ? "true" : "false"}
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-1 mb-2 mb-lg-0 mx-auto">
+        <div
+          className={
+            "collapse navbar-collapse" + (showCollapsedMenu ? " show" : "")
+          }
+          id="navbarSupportedContent"
+        >
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink to="/" className="nav-link active" aria-current="page">
+              <NavLink
+                to="/"
+                className="nav-link"
+                activeclassname="active"
+                exact={true.toString()}
+              >
                 Home
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
                 to="/aboutUs"
-                className="nav-link active"
-                aria-current="page"
+                className="nav-link"
+                activeclassname="active"
+                exact={true.toString()}
               >
                 About Us
               </NavLink>
@@ -37,22 +54,25 @@ function Header() {
             <li className="nav-item">
               <NavLink
                 to="/contact"
-                className="nav-link active"
-                aria-current="page"
+                className="nav-link"
+                activeclassname="active"
+                exact={true.toString()}
               >
                 Contact
               </NavLink>
             </li>
-            <li className="nav-item dropdown">
+            {/* <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Menu
               </a>
-              <ul className="dropdown-menu">
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
                   <a className="dropdown-item" href="#">
                     Action
@@ -72,23 +92,23 @@ function Header() {
                   </a>
                 </li>
               </ul>
-            </li>
+            </li> */}
           </ul>
-          <form className="d-flex" role="search">
+          {/* <form className="d-flex">
             <input
               className="form-control me-2"
               type="search"
-              placeholder="Search product"
+              placeholder="Search"
               aria-label="Search"
             />
-            <button className="btn btn-outline-primary" type="submit">
+            <button className="btn btn-outline-success" type="submit">
               Search
             </button>
-          </form>
+          </form> */}
         </div>
       </div>
-    </div>
+    </nav>
   );
-}
+};
 
 export default Header;

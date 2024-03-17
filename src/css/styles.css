@@ -298,3 +298,6 @@ img {
     margin-left: auto;
   }
 }
+.container-fluid {
+  background-color: white;
+}

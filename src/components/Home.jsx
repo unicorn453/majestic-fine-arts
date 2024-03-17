@@ -10,7 +10,6 @@ function Home() {
     <div className="overview-wrapper">
       <div className="overview-content">
         <div className="components-wrapper">
-          <Header />
           <Hero />
           <ArtistsGrid />
           <div className="graphs-wrapper">{/* <Transactions /> */}</div>
