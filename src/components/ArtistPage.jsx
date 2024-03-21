@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import artistsData from "../artists.json"; // Import artists data from JSON file
+import artistsData from "../data/artists.json"; // Import artists data from JSON file
 import "../css/ameglio.css";
 
 function ArtistPage() {
