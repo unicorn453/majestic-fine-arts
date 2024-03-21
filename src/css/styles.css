@@ -107,7 +107,7 @@ p {
   height: 500px;
   width: 100%;
   margin-bottom: 25px;
-  background-image: url("../assets/images/painting1.jpg");
+  background-image: url("/images/painting1.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -218,23 +218,23 @@ img {
 }
 #ameglio {
   grid-area: ameglio;
-  background-image: url("../assets/images/ameglio.jpg");
+  background-image: url("/images/ameglio.jpg");
 }
 #artist1 {
   grid-area: artist1;
-  background-image: url("../assets/images/artist1.png");
+  background-image: url("/images/artist1.png");
 }
 #artist2 {
   grid-area: artist2;
-  background-image: url("../assets/images/artist2.png");
+  background-image: url("/images/artist2.png");
 }
 #artist3 {
   grid-area: artist3;
-  background-image: url("../assets/images/artist3.png");
+  background-image: url("/images/artist3.png");
 }
 #artist4 {
   grid-area: artist4;
-  background-image: url("../assets/images/sunset.jpg");
+  background-image: url("/images/sunset.jpg");
 }
 .categoryGridArea {
   background-position: center;
