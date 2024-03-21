@@ -11,7 +11,7 @@
 .navbar-brand {
   font-size: 30px;
 }
-.hero {
+.heroArtist {
   height: 500px;
   width: 100%;
   margin-bottom: 25px;
@@ -32,10 +32,9 @@ h2 {
   text-align: left;
   font-size: 20px;
 }
-article {
-  padding-left: 10px;
-}
+
 .artistInfo {
+  padding-left: 10px;
   position: absolute;
   bottom: 50%;
   color: white;
@@ -48,3 +47,12 @@ article {
 .artistInfo h2 {
   padding-bottom: 20px;
 }
+/* .pictureText {
+  padding-left: 10px;
+  display: block;
+  box-sizing: border-box;
+  line-height: 15px;
+}
+.pictureText p {
+  font-size: 14px;
+} */

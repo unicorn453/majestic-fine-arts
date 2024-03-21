@@ -1,0 +1,15 @@
+{
+  "ameglio": {
+    "name": "Ameglio",
+    "nationality": "Italian",
+    "lifespan": "1897 - 1970",
+    "bio": "Merio Ameglio was an Italian painter who was born in 1897. Merio Ameglio's work has been offered at auction multiple times, with realized prices ranging from 49.",
+    "image": "../src/assets/images/ameglio_merio.jpg"
+  },
+  "artist1": {
+    "name": "Artist1",
+    "nationality": "Italian1",
+    "lifespan": "1897 - 19701",
+    "bio": "Merio Ameglio was an Italian painter who was born in 1897. Merio Ameglio's work has been offered at auction multiple times, with realized prices ranging from 49."
+  }
+}
