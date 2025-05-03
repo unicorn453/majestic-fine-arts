@@ -61,6 +61,16 @@ const Header = () => {
                 Contact
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink
+                to="/shoppingCart"
+                className="nav-link"
+                activeclassname="active"
+                exact={true.toString()}
+              >
+                Shopping Cart
+              </NavLink>
+            </li>
             {/* <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
