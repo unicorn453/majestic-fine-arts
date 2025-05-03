@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom"; 
 
-const Header = () => {
+const Header = ({ toggleCartModal }) => {
   const [showCollapsedMenu, setShowCollapsedMenu] = useState(false);
 
   const toggleMenu = () => {
@@ -61,60 +61,26 @@ const Header = () => {
                 Contact
               </NavLink>
             </li>
+            {/* Shopping Cart Link replaced by a Button */}
+            <li className="nav-item">
+              <button
+                onClick={toggleCartModal}  // Toggle the cart modal when clicked
+                className="nav-link btn btn-link"
+              >
+                Shopping Cart
+              </button>
+            </li>
             <li className="nav-item">
               <NavLink
-                to="/shoppingCart"
+                to="/checkout"
                 className="nav-link"
                 activeclassname="active"
                 exact={true.toString()}
               >
-                Shopping Cart
+                Checkout
               </NavLink>
             </li>
-            {/* <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Menu
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </li>
-              </ul>
-            </li> */}
           </ul>
-          {/* <form className="d-flex">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form> */}
         </div>
       </div>
     </nav>

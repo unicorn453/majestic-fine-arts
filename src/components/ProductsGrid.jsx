@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const ProductsGrid = ({ products, cart, setCart }) => {
   const addToCart = (productId, variantId) => {
@@ -6,22 +6,21 @@ const ProductsGrid = ({ products, cart, setCart }) => {
       console.error("Products array is undefined or empty.");
       return;
     }
-  
+
     const product = products.find((p) => p.id === productId);
     if (!product) {
       console.error(`Product with ID ${productId} not found.`);
       return;
     }
-  
+
     const variant = product.variants?.find((v) => v.id === variantId);
     if (!variant) {
       console.error(`Variant with ID ${variantId} not found for product ${productId}.`);
       return;
     }
-  
-    // Check if the item is already in the cart
+
     const existingItem = cart.find((item) => item.variantId === variantId);
-  
+
     if (existingItem) {
       // Update quantity if the item is already in the cart
       setCart(
@@ -46,6 +45,11 @@ const ProductsGrid = ({ products, cart, setCart }) => {
       ]);
     }
   };
+
+  // Log the updated cart whenever it changes
+  useEffect(() => {
+    console.log("Updated Cart:", cart);
+  }, [cart]);
 
   return (
     <div className="container">

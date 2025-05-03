@@ -8,7 +8,7 @@ import ProductsGrid from "./ProductsGrid";
 
 
 
-function Home() {
+function Home({ cart, setCart }) {
 
   const [products, setProducts] = useState([]); // State to store fetched products
   const [error, setError] = useState(null); // State to track errors
@@ -17,7 +17,6 @@ function Home() {
     const getProducts = async () => {
       try {
         const data = await fetchProducts();
-        console.log("Fetched Products:", data); // Log the fetched products to verify
         setProducts(data.products); // Store fetched products in state
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -38,7 +37,7 @@ function Home() {
         <div className="components-wrapper">
           <Hero />
           <ArtistsGrid />
-          <ProductsGrid products={products} />
+          <ProductsGrid products={products} cart={cart} setCart={setCart} />
           <div className="graphs-wrapper">{/* <Transactions /> */}</div>
         </div>
       </div>
