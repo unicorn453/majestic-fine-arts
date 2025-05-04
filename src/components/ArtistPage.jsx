@@ -1,49 +1,85 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import artistsData from "../data/artists.json"; // Import artists data from JSON file
 import "../css/ameglio.css";
+import fetchProducts from "../api/store"; // Importing the API to fetch products
 
-function ArtistPage() {
-  let { id } = useParams(); // Get the artist ID from the URL
-
-  // State to track artist information
-  const [artistInfo, setArtistInfo] = useState(null);
-
-  // Effect to fetch artist data when component mounts or id changes
-  useEffect(() => {
-    // Fetch artist data from imported JSON file
-    const data = artistsData[id];
-    if (data) {
-      setArtistInfo(data);
-    } else {
-      // Handle case where artist data is not found
-      console.error(`Artist with ID ${id} not found`);
-    }
-  }, [id]);
-
-  // State to track whether the image is popped out or not
+function ProductPage({ cart, setCart }) {
+  const { id } = useParams(); // product ID from URL
+  const [products, setProducts] = useState([]); // Store fetched products
+  const [product, setProduct] = useState(null); // Store the matched product
   const [isPoppedOut, setIsPoppedOut] = useState(false);
+  const [error, setError] = useState(null); // Store any errors
 
-  // Function to toggle the pop-out state
-  const togglePopOut = () => {
-    setIsPoppedOut(!isPoppedOut);
+  // Fetch products on component mount
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const data = await fetchProducts();
+        setProducts(data.products || []); // Set fetched products
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setError("Failed to fetch products. Please try again later.");
+      }
+    };
+    getProducts();
+  }, []);
+
+  // Effect to find the product that matches the id from the URL after products are fetched
+  useEffect(() => {
+    if (products.length > 0) {
+      const foundProduct = products.find((item) => item.id.toString() === id);
+      if (foundProduct) {
+        setProduct(foundProduct); // Set the matched product
+      } else {
+        console.error(`Product with ID ${id} not found`);
+        setError("Product not found.");
+      }
+    }
+  }, [id, products]);
+
+  const addToCart = (productId, variantId) => {
+    const productToAdd = products.find((p) => p.id === productId);
+    const variant = productToAdd?.variants?.find((v) => v.id === variantId);
+
+    if (!productToAdd || !variant) {
+      console.error("Product or variant not found.");
+      return;
+    }
+
+    const exists = cart.some((item) => item.variantId === variantId);
+    if (exists) {
+      alert("This item is already in your cart.");
+      return;
+    }
+
+    setCart([
+      ...cart,
+      {
+        productId,
+        variantId,
+        title: productToAdd.title,
+        thumbnail: productToAdd.thumbnail,
+        price: variant.price,
+        quantity: 1,
+      },
+    ]);
   };
 
-  // Render loading indicator if artist info is being fetched
-  if (!artistInfo) {
-    return <div>Loading...</div>;
-  }
+  const togglePopOut = () => setIsPoppedOut(!isPoppedOut);
+
+  if (error) return <div>{error}</div>; // Display error if there is one
+  if (!product) return <div>Loading...</div>; // Show loading state until product is found
+
+  const firstVariant = product.variants?.[0]; // Use the first variant as default
 
   return (
     <div>
-      <h2>Artist: {artistInfo.name}</h2>
+      <h2>Product: {product.title}</h2>
       <section className="heroArtist">
         <div className="artistInfo">
-          <h2>{artistInfo.name}</h2>
-          <p>
-            {artistInfo.nationality} | {artistInfo.lifespan}
-          </p>
-          <p>{artistInfo.bio}</p>
+          <h2>{product.title}</h2>
+          <p>{product.subtitle}</p>
+          <p>{product.description}</p>
         </div>
       </section>
 
@@ -55,18 +91,21 @@ function ArtistPage() {
               onClick={togglePopOut}
             >
               <img
-                src={artistInfo.image} // Use image URL from artist data
-                alt={artistInfo.name}
+                src={product.thumbnail}
+                alt={product.title}
+                style={{ maxWidth: "100%" }}
               />
-              {/* <div className="pictureText">
-                <h2>Heading</h2>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Sapiente excepturi, odit ut molestias voluptas repellat
-                  blanditiis accusamus consequatur autem. Eos?
-                </p>
-              </div> */}
             </div>
+          </div>
+          <div className="col-6 d-flex align-items-center justify-content-center">
+            {firstVariant && (
+              <button
+                onClick={() => addToCart(product.id, firstVariant.id)}
+                className="btn btn-secondary"
+              >
+                Add to Cart
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -74,4 +113,4 @@ function ArtistPage() {
   );
 }
 
-export default ArtistPage;
+export default ProductPage;

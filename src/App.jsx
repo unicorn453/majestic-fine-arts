@@ -26,6 +26,9 @@ function App() {
     setIsCartModalOpen((prevState) => !prevState); // Toggle the modal
   };
 
+  // Fetch products from the API
+  
+
   return (
     <>
       <Router>
@@ -35,7 +38,7 @@ function App() {
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/checkout" element={<CheckoutPage cart={cart} setCart={setCart} />} />
-          <Route path="/artist/:id" element={<ArtistPage />} />
+          <Route path="/product/:id" element={<ArtistPage cart={cart} setCart={setCart} />} />
         </Routes>
 
         {/* Shopping Cart Modal */}

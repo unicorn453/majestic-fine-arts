@@ -4,7 +4,6 @@ import Header from "./Header";
 import Hero from "./Hero";
 import ArtistsGrid from "./ArtistsGrid";
 import fetchProducts from "../api/store";
-import ProductsGrid from "./ProductsGrid";
 
 
 
@@ -36,8 +35,7 @@ function Home({ cart, setCart }) {
       <div className="overview-content">
         <div className="components-wrapper">
           <Hero />
-          <ArtistsGrid />
-          <ProductsGrid products={products} cart={cart} setCart={setCart} />
+          <ArtistsGrid products={products} />
           <div className="graphs-wrapper">{/* <Transactions /> */}</div>
         </div>
       </div>
