@@ -1,51 +1,91 @@
-import React, { useState } from 'react';
-import Medusa from '@medusajs/medusa-js'; // Corrected import
+import React, { useState, useEffect } from 'react';
 
-const medusa = new Medusa({ baseUrl: 'http://localhost:9000' });
 
 function CheckoutPage({ cart, setCart }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [checkoutDetails, setCheckoutDetails] = useState({
+  const [ isLoading, setIsLoading ] = useState(false);
+  const [ checkoutDetails, setCheckoutDetails ] = useState({
     email: '',
     shippingAddress: '',
     paymentMethod: '',
   });
 
-  const handleCheckout = async () => {
-    if (!cart || !checkoutDetails.email || !checkoutDetails.shippingAddress || !checkoutDetails.paymentMethod) {
-      alert('Please fill in all details!');
-      return;
-    }
+  const fetchCart = async (cartId) => {
+    const res = await fetch(`http://localhost:9000/store/carts/${cartId}`);
+    if (!res.ok) throw new Error("Failed to fetch cart");
+    return await res.json();
+  };
 
+
+
+  const updateCart = async (cartId, { email, shippingAddress }) => {
+    const res = await fetch(`http://localhost:9000/store/carts/${cartId}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        shipping_address: {
+          address_1: shippingAddress,
+          country_code: "eu"
+        }
+      }),
+    });
+    if (!res.ok) throw new Error("Failed to update cart");
+    return await res.json();
+  };
+
+
+  const createPaymentSessions = async (cartId) => {
+    const res = await fetch(`http://localhost:9000/store/carts/${cartId}/payment-sessions`, {
+      method: "POST",
+    });
+    if (!res.ok) throw new Error("Failed to create payment sessions");
+    return await res.json();
+  };
+
+  const setPaymentSession = async (cartId, providerId) => {
+    const res = await fetch(`http://localhost:9000/store/carts/${cartId}/payment-session`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ provider_id: providerId }),
+    });
+    if (!res.ok) throw new Error("Failed to set payment session");
+    return await res.json();
+  };
+
+  const completeCart = async (cartId) => {
+    const res = await fetch(`http://localhost:9000/store/carts/${cartId}/complete`, {
+      method: "POST",
+    });
+    if (!res.ok) throw new Error("Failed to complete cart");
+    return await res.json();
+  };
+
+  const handleCheckout = async () => {
     try {
+      if (!cart || !checkoutDetails.email || !checkoutDetails.shippingAddress || !checkoutDetails.paymentMethod) {
+        alert("Missing info");
+        return;
+      }
+
       setIsLoading(true);
 
-      // 1. Update cart with email and shipping address
-      await medusa.carts.update(cart.id, {
+      await updateCart(cart.id, {
         email: checkoutDetails.email,
-        shipping_address: {
-          address_1: checkoutDetails.shippingAddress, // Simplified
-          country_code: 'us', // Required by Medusa
-        },
+        shippingAddress: checkoutDetails.shippingAddress,
       });
 
-      // 2. Create payment sessions
-      await medusa.carts.createPaymentSessions(cart.id);
+      await createPaymentSessions(cart.id);
 
-      // 3. Set payment method (e.g. stripe)
-      await medusa.carts.setPaymentSession(cart.id, {
-        provider_id: checkoutDetails.paymentMethod,
-      });
+      await setPaymentSession(cart.id, checkoutDetails.paymentMethod);
 
-      // 4. Complete the cart (turns it into an order)
-      const { order } = await medusa.carts.complete(cart.id);
+      const result = await completeCart(cart.id);
 
-      alert('Checkout successful!');
-      setCart(null);
-      console.log('Order:', order);
-    } catch (error) {
-      console.error('Checkout error:', error);
-      alert('Checkout failed. See console for details.');
+      alert("Checkout successful!");
+
+      setCart(null); // Optionally clear the cart after checkout
+    } catch (err) {
+      console.error("Checkout failed", err);
+      alert("Checkout failed. Check console for details.");
     } finally {
       setIsLoading(false);
     }
@@ -54,41 +94,61 @@ function CheckoutPage({ cart, setCart }) {
   return (
     <div>
       <h1>Checkout</h1>
-      {isLoading ? <p>Loading...</p> : (
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
         <>
-          {/* Render cart items if available */}
-          {cart && cart.items && cart.items.length > 0 ? (
-            <ul>
-              {cart.items.map((item) => (
-                <li key={item.id}>
-                  {item.title} - {item.quantity} x ${(item.unit_price / 100).toFixed(2)}
-                </li>
-              ))}
-            </ul>
+          {cart && cart.length > 0 ? (
+            cart.map((item, index) => (
+              <div key={item.variantId || index}>
+                <h3>{item.title}</h3>
+                <p>Quantity: {item.quantity}</p>
+                <img src={item.thumbnail} alt={item.title} style={{ width: '100px' }} />
+                <p>Product ID: {item.productId}</p>
+                <p>Variant ID: {item.variantId}</p>
+                <p>
+                  Price:{' '}
+                  {item.price !== undefined
+                    ? `$${(item.price / 100).toFixed(2)}`
+                    : 'Price not available'}
+                </p>
+              </div>
+            ))
           ) : (
-            <p>No items in your cart.</p>
+            <p>Your cart is empty.</p>
           )}
-
-          <input 
-            type="email" 
-            placeholder="Email" 
-            onChange={e => setCheckoutDetails({ ...checkoutDetails, email: e.target.value })} 
-          />
-          <input 
-            type="text" 
-            placeholder="Shipping Address" 
-            onChange={e => setCheckoutDetails({ ...checkoutDetails, shippingAddress: e.target.value })} 
-          />
-          <input 
-            type="text" 
-            placeholder="Payment Method" 
-            onChange={e => setCheckoutDetails({ ...checkoutDetails, paymentMethod: e.target.value })} 
-          />
-          <button onClick={handleCheckout}>Complete Checkout</button>
         </>
       )}
+  
+      <input
+        type="email"
+        placeholder="Email"
+        onChange={e =>
+          setCheckoutDetails({ ...checkoutDetails, email: e.target.value })
+        }
+      />
+      <input
+        type="text"
+        placeholder="Shipping Address"
+        onChange={e =>
+          setCheckoutDetails({
+            ...checkoutDetails,
+            shippingAddress: e.target.value,
+          })
+        }
+      />
+      <input
+        type="text"
+        placeholder="Payment Method"
+        onChange={e =>
+          setCheckoutDetails({
+            ...checkoutDetails,
+            paymentMethod: e.target.value,
+          })
+        }
+      />
+      <button onClick={handleCheckout}>Complete Checkout</button>
     </div>
   );
 }
-
 export default CheckoutPage;

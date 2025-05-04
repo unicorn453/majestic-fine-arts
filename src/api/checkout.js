@@ -40,3 +40,5 @@ const testPage = () => {
         </div>
     );
     }
+
+export default testPage;

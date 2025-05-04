@@ -22,14 +22,10 @@ const ProductsGrid = ({ products, cart, setCart }) => {
     const existingItem = cart.find((item) => item.variantId === variantId);
 
     if (existingItem) {
-      // Update quantity if the item is already in the cart
-      setCart(
-        cart.map((item) =>
-          item.variantId === variantId
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
+     
+      alert("This item is already in your cart.");
+    return;
+
     } else {
       // Add new item to the cart
       setCart([
@@ -46,10 +42,6 @@ const ProductsGrid = ({ products, cart, setCart }) => {
     }
   };
 
-  // Log the updated cart whenever it changes
-  useEffect(() => {
-    console.log("Updated Cart:", cart);
-  }, [cart]);
 
   return (
     <div className="container">
